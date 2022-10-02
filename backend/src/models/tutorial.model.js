@@ -1,6 +1,6 @@
 module.exports = mongoose => {
 
-  var tutorialSchema = mongoose.Schema(
+  let tutorialSchema = mongoose.Schema(
     {
       title: String,
       description: String,

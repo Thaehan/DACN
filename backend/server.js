@@ -1,8 +1,8 @@
 const express = require("express");
 // const bodyParser = require("body-parser"); /* deprecated */
 const cors = require("cors");
-
 const app = express();
+const db = require("./src/models");
 
 var corsOptions = {
   origin: "http://localhost:3000"
@@ -16,7 +16,6 @@ app.use(express.json());  /* bodyParser.json() is deprecated */
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));   /* bodyParser.urlencoded() is deprecated */
 
-const db = require("./src/models");
 db.mongoose
   .connect(db.url, {
     useNewUrlParser: true,
@@ -30,19 +29,12 @@ db.mongoose
     process.exit();
   });
 
-// simple route
-app.get("/", (req, res) => {
-  res.json({ message: "Hello There" });
-});
-
+//Declare all routes here
 require("./src/routes/turorial.routes")(app);
-require("./src/routes/account.routes")(app);
-require("./src/routes/student.routes")(app);
-require("./src/routes/classRecord.routes")(app);
-require("./src/routes/topic.routes")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
