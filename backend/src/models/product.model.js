@@ -8,7 +8,7 @@ const productSchema = new Schema({
   },
   quanity_in_stock: { type: Number, required: true },
   price: { type: Number, required: true },
-  image: { type: Types.Buffer, default: null },
+  image: { type: String, default: null },
   description: { type: String, default: '' },
 })
 
