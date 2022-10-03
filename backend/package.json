@@ -14,7 +14,7 @@
     "api",
     "mongodb"
   ],
-  "author": "Nhom4",
+  "author": "TH",
   "license": "MIT",
   "dependencies": {
     "@aternus/csv-to-xlsx": "^1.0.19",
