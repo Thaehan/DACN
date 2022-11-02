@@ -1,2 +1,2 @@
-cd frontend
+cd SmartStuMana
 npm start
