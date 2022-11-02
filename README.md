@@ -1,1 +1,1 @@
-Dự án trang web quản lý tiệm cắt tóc!
+Dự án phần mềm quản lý sinh viên
