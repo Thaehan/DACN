@@ -15,8 +15,8 @@ const Drawer = createDrawerNavigator();
 const MainScreenStack = () => {
   return (
     <MainStack.Navigator>
-      <MainStack.Screen name={ScreenName.Home} component={HomeScreen} />
       <MainStack.Screen name={ScreenName.Login} component={LoginScreen} />
+      <MainStack.Screen name={ScreenName.Home} component={HomeScreen} />
     </MainStack.Navigator>
   );
 };

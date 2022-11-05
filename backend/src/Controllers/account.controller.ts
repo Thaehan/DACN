@@ -3,7 +3,7 @@ import { hash, compare } from 'bcrypt'
 
 import { hashSaltRound } from '../Config/config'
 import db from '../Models'
-import { IAccount } from '../Types/IAccount'
+import { IAccount } from '../Types'
 
 const Account = db.accounts
 
@@ -36,7 +36,7 @@ const validatePasswordAsync = async (req: Request, res: Response) => {
       return
     }
 
-    const storedUser: IAccount = await Account.findOne({ username: username })
+    const storedUser = await Account.findOne({ username: username })
     if (!storedUser) {
       res.status(400).send({ message: 'Username is not exist!' })
       return

@@ -1,8 +1,6 @@
-import { Mongoose, Schema, Types } from 'mongoose'
+import { InferSchemaType, Mongoose, Schema, Types } from 'mongoose'
 
-import { IAccount } from '../Types/IAccount'
-
-const accountSchema = new Schema<IAccount>(
+const accountSchema = new Schema(
   {
     username: { type: String, required: true, min: 6, max: 16 },
     password: { type: String, required: true, min: 8, max: 16 },
@@ -11,7 +9,6 @@ const accountSchema = new Schema<IAccount>(
       enum: ['admin', 'teacher', 'student'],
       required: true,
     },
-    major_id: { type: String },
   },
   {
     timestamps: true,
@@ -28,6 +25,8 @@ const accountModel = (mongoose: Mongoose) => {
   const Account = mongoose.model('account', accountSchema)
   return Account
 }
+
+export type IAccount = InferSchemaType<typeof accountSchema>
 
 export default {
   accountModel,
