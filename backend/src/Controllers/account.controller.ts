@@ -28,28 +28,33 @@ const createAsync = async (req: Request, res: Response) => {
   }
 }
 
-const validatePasswordAsync = async (req: Request, res: Response) => {
+const findOneAsync = async (req: Request, res: Response) => {
   try {
-    const username = req.query.username?.toString()
-    const password = req.query.password?.toString()
-    if (!username || !password) {
-      return
-    }
+    const { username, password } = req.query
 
-    const storedUser = await Account.findOne({ username: username })
-    if (!storedUser) {
-      res.status(400).send({ message: 'Username is not exist!' })
-      return
+    console.log(username, password)
+
+    if (username && password) {
+      const hashedPassword = await hash(password.toString(), hashSaltRound)
+      const result = await Account.findOne({
+        username,
+        password: hashedPassword,
+      })
+      res.status(200).send(result)
+    } else {
+      res
+        .status(400)
+        .send({ message: 'Fill the username and password please!' })
     }
-    const isLogin = await compare(password, storedUser.password)
-    res.status(200).send({ valid: isLogin })
   } catch (error) {
     res.status(400).send({ message: error })
   }
 }
 
-const getAllAsync = async (req: Request, res: Response) => {
+const getManyAsync = async (req: Request, res: Response) => {
   try {
+    const { username } = req.query
+    console.log(username)
     const result = await Account.find({})
     res.status(200).send({ data: result })
   } catch (error) {
@@ -57,8 +62,38 @@ const getAllAsync = async (req: Request, res: Response) => {
   }
 }
 
+const getByIdAsync = async (req: Request, res: Response) => {
+  try {
+    const userId = req.params.id
+    console.log('get by id')
+    if (!userId) {
+      res.status(400).send({ message: 'Cần nhập vào userId' })
+    }
+    const result = await Account.findById(userId)
+    res.send(result)
+  } catch (error) {
+    res.status(400).send({ message: error })
+  }
+}
+
+const updateAsync = async (req: Request, res: Response) => {
+  try {
+    const { id, data } = req.body
+    console.log('id, data', id, data)
+    if (!id || !data) {
+      res.status(400).send({ message: 'Please fill the id and data!' })
+    }
+    const result = await Account.findByIdAndUpdate(id, data)
+    res.status(200).send({ message: 'Account updated' })
+  } catch (error) {
+    res.status(400).send({ message: error })
+  }
+}
+
 export default {
   createAsync,
-  getAllAsync,
-  validatePasswordAsync,
+  getManyAsync,
+  getByIdAsync,
+  updateAsync,
+  findOneAsync,
 }

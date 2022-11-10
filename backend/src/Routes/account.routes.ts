@@ -7,9 +7,13 @@ const accountRoutes = (app: Express) => {
 
   router.post('/', accountController.createAsync)
 
-  router.get('/', accountController.getAllAsync)
+  router.get('/', accountController.getManyAsync)
 
-  router.get('/validate', accountController.validatePasswordAsync)
+  router.get('/login', accountController.findOneAsync)
+
+  router.get('/:id', accountController.getByIdAsync)
+
+  router.post('/update', accountController.updateAsync)
 
   app.use('/api/accounts', router)
 }
