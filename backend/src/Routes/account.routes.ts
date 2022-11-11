@@ -9,7 +9,7 @@ const accountRoutes = (app: Express) => {
 
   router.get('/', accountController.getManyAsync)
 
-  router.get('/login', accountController.findOneAsync)
+  router.get('/login', accountController.loginAsync)
 
   router.get('/:id', accountController.getByIdAsync)
 

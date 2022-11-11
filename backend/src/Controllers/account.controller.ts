@@ -28,7 +28,7 @@ const createAsync = async (req: Request, res: Response) => {
   }
 }
 
-const findOneAsync = async (req: Request, res: Response) => {
+const loginAsync = async (req: Request, res: Response) => {
   try {
     const { username, password } = req.query
 
@@ -46,6 +46,13 @@ const findOneAsync = async (req: Request, res: Response) => {
         .status(400)
         .send({ message: 'Fill the username and password please!' })
     }
+  } catch (error) {
+    res.status(400).send({ message: error })
+  }
+}
+
+const findOneAsync = async (req: Request, res: Response) => {
+  try {
   } catch (error) {
     res.status(400).send({ message: error })
   }
@@ -96,4 +103,5 @@ export default {
   getByIdAsync,
   updateAsync,
   findOneAsync,
+  loginAsync,
 }
